@@ -26,10 +26,10 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   //
   // In the background, a revalidation request will be made to populate the cache
   // with a fresh value. If you refresh the page, you will see the new value.
-  // res.setHeader(
-  //   'Cache-Control',
-  //   'public, s-maxage=5, stale-while-revalidate=10'
-  // );
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=5, stale-while-revalidate=10"
+  );
   // -> getServerSideProps에서 revalidate하는법(실제로 쓸일은 거의 없음)
 
   const delayInSeconds = 2;

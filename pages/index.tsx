@@ -1,5 +1,8 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { Fragment } from "react";
+import Header from "../components/common/Header";
+import Feedback from "./feedback";
 
 // npx create-next-app@latest --typescript
 // eslint-config-next는 next.js에서 권장하는 eslint 속성이 적용되는 모듈
@@ -22,5 +25,10 @@ import styles from "./page.module.css";
 //   CSR
 
 export default function Home() {
-  return <>Hello World!</>;
+  return (
+    <Fragment>
+      <Header />
+      <main>Hello World!</main>
+    </Fragment>
+  );
 }
