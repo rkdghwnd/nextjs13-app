@@ -40,6 +40,8 @@ const MapSection = () => {
     <>
       <Map
         onLoad={onLoadMap}
+        // 줌값과 좌표값을 받아 지도위치를 초기화하기 위함
+        // 공유 버튼을 통해 변경된 좌표값을 토대로도 초기화가 됨(next/router의 asPath로 받아오기 때문)
         initialZoom={initialZoom}
         initialCenter={initialCenter}
       />
