@@ -1,8 +1,11 @@
-import Image from "next/image";
-import styles from "./page.module.css";
-import { Fragment } from "react";
-import Header from "../components/common/Header";
-import Feedback from "./feedback";
+import { Fragment, useEffect } from "react";
+import { NextPage } from "next";
+import Header from "../components/home/Header";
+import MapSection from "../components/home/MapSection";
+import DetailSection from "../components/home/DetailSection";
+import { Store } from "../types/store";
+import useStores from "../hooks/useStores";
+import { NextSeo } from "next-seo";
 
 // npx create-next-app@latest --typescript
 // eslint-config-next는 next.js에서 권장하는 eslint 속성이 적용되는 모듈
@@ -24,11 +27,51 @@ import Feedback from "./feedback";
 //   revalidate: incremental Static Regeneration(ISR)
 //   CSR
 
-export default function Home() {
+interface Props {
+  stores: Store[];
+}
+
+const Home: NextPage<Props> = ({ stores }) => {
+  const { initializeStores } = useStores();
+
+  useEffect(() => {
+    initializeStores(stores);
+  }, [initializeStores, stores]);
+
   return (
     <Fragment>
+      <NextSeo
+        title="매장 지도"
+        description="Next.js 시작하기 강의를 위한 매장 지도 서비스입니다."
+        canonical="https://inflearn-nextjs.vercel.app"
+        openGraph={{
+          url: "https://inflearn-nextjs.vercel.app",
+        }}
+      />
       <Header />
-      <main>Hello World!</main>
+      <main
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          overflow: "hidden",
+        }}
+      >
+        <MapSection />
+        <DetailSection />
+      </main>
     </Fragment>
   );
+};
+export default Home;
+
+export async function getStaticProps() {
+  const stores = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/stores`
+  ).then((response) => response.json());
+
+  return {
+    props: { stores },
+    revalidate: 60 * 60,
+  };
 }

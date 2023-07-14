@@ -11,7 +11,7 @@ import example from "/public/example.jpg";
 
 // next/image 태그
 // 1. .webp 로 다운 받아 용량 최적화, quality 속성으로 용량 조절가능(기본값 75)
-// 2. next.image 는 너비와 높이를 기반으로 빌드타임에 이미지를 최적화함
+// 2. next/image 는 너비와 높이를 기반으로 빌드타임에 이미지를 최적화함
 // 3. 스트링경로(내부링크,외부링크 둘다)는 width height 속성이 정해져야함
 // 3. static하게 import해서 경로를 가져오는경우 width heigth를 자동으로 계산하기 때문에 속성 않넣어도됨
 // 4. placeholder="blur" -> 이미지가 다운로드 되는동안 blur 이미지가 자동으로 적용됨(배포환경에서 확인가능)
@@ -19,8 +19,11 @@ import example from "/public/example.jpg";
 
 // next/image 를 적용할때 이미지의 너비 높이를 모르는 경우 -> fill 속성 추가
 // fill 속성 : 이미지의 사이즈가 부모에 의해 결정됨
-// 부모 스타일에 postion:absolute or relative or fixed 설정 후 width height 속성 추가
-// -> 이미지 정상 렌더링
+// ex)
+// 부모 스타일에 postion:absolute or relative or fixed 설정 후
+// 부모의 사이즈(width height) 설정  + next/image에 fill 속성추가
+// -> 부모 사이즈에 맞춰 이미지 생성됨
+// + v13에서는 레이아웃 속성이 fill만 존재함
 
 // 사진이 납작해 보이는 경우 -> style={{ objectFit: 'cover' }}
 // 원본의 비율을 유지해줌 (object-fit css 속성 검색)
@@ -31,12 +34,12 @@ import example from "/public/example.jpg";
 // https://nextjs.org/docs/pages/api-reference/components/image#domains
 
 // LegacyImage : v12 까지의 next/image
-// LegacyImage는 생성하면 브라우저에서 img 태그와 함게 span태그가 생성됨(v13은 img만)
-// span 태그를 통해 img의 레이아웃을 스타일링하는 구조
+// LegacyImage는 생성하면 브라우저에서 img 태그의 부모로 span태그가 생성됨(v13은 img만)
+// span 태그를 통해 img의 레이아웃을 스타일링하는 구조 -> 웹 접근성을 해칠수도 있음
 // LegacyImage는 layout 속성에
 // intrinsic, fill, fixed, responsive 등의 속성을 반드시 지정해야함
 
-// intrinsic: 원본 이미지 사이즈로 렌더링 하되 화면이 이미지보다 작아졌을때
+// intrinsic: 지정된 이미지 사이즈로 렌더링 하되 화면이 이미지보다 작아졌을때
 // 화면에 맞춰 리사이징 함, layout shift(레이아웃이 예기치않게 변화하는 현상)이 없음
 // fixed: 화면이 리사이징 되어도 이미지 크기가 고정됨
 // responsive: intrinsic의 특징 + 화면이 커질때도 리사이징됨
@@ -49,20 +52,20 @@ const Images: NextPage = () => {
       {/* loading check */}
       {/*<section style={{ height: '500vh' }}>long long content</section>*/}
       <hr style={{ margin: "32px 0" }} />
-      {/*<h1>img tag</h1>*/}
-      {/* <figure>
-       <img
-         src="https://inflearn-nextjs.vercel.app/example.jpg"
-         alt="example"
-         width={500}
-         height={100}
-        //  https://web.dev/browser-level-image-lazy-loading/
-        // loading="lazy" -> 화면에 이미지가 보일때 다운로드함
-       />
-       <figcaption>example img</figcaption>
-      </figure> */}
+      <h1>img tag</h1>
+      <figure>
+        <img
+          src="https://inflearn-nextjs.vercel.app/example.jpg"
+          alt="example"
+          width={500}
+          height={100}
+          //  https://web.dev/browser-level-image-lazy-loading/
+          // loading="lazy" -> 화면에 이미지가 보일때 다운로드함
+        />
+        <figcaption>example img</figcaption>
+      </figure>
 
-      {/*<hr style={{ margin: '32px 0' }} />*/}
+      <hr style={{ margin: "32px 0" }} />
 
       <h1>next/image</h1>
       <figure>
