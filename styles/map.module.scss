@@ -1,4 +1,4 @@
-@use './detail.module';
+@use "./detail.module";
 
 .map {
   width: 100%;
@@ -6,6 +6,7 @@
 
   // naver logo control 위치 조정
   & > div:nth-of-type(2) {
+    // naver map에서 생성시켜주는 요소 -> 브라우저에서 직접 찾아서 요소선택
     bottom: detail.$header-height + detail.$section-padding-top !important;
   }
 }

@@ -1,8 +1,8 @@
-import Image from 'next/image';
-import type { Store } from '../../types/store';
-import Naver from 'public/images/naver.png';
-import { IoCallOutline, IoLocationOutline } from 'react-icons/io5';
-import styles from '../../styles/detail.module.scss';
+import Image from "next/image";
+import type { Store } from "../../types/store";
+import Naver from "public/images/naver.png";
+import { IoCallOutline, IoLocationOutline } from "react-icons/io5";
+import styles from "../../styles/detail.module.scss";
 
 type Props = {
   currentStore?: Store;
@@ -13,22 +13,23 @@ const DetailContent = ({ currentStore, expanded }: Props) => {
   if (!currentStore) return null;
   return (
     <div
-      className={`${styles.detailContent} ${expanded ? styles.expanded : ''}`}
+      className={`${styles.detailContent} ${expanded ? styles.expanded : ""}`}
     >
       <div className={styles.images}>
         {currentStore.images.slice(0, 3).map((image) => (
           <div
-            style={{ position: 'relative', maxWidth: 120, height: 80 }}
+            style={{ position: "relative", maxWidth: 120, height: 80 }}
             key={image}
           >
             <Image
               src={image}
               alt=""
               fill
-              style={{ objectFit: 'cover' }}
+              style={{ objectFit: "cover" }}
               sizes="120px"
               placeholder="blur"
               blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mO0WhFsDwADzwF2mLYSJgAAAABJRU5ErkJggg=="
+              // 외부에서 가져온 이미지 이므로 blur용 url을 따로 가져옴
               priority
             />
           </div>
@@ -45,11 +46,11 @@ const DetailContent = ({ currentStore, expanded }: Props) => {
             <h2>기본 정보</h2>
             <div className="address">
               <IoLocationOutline size={20} />
-              <span>{currentStore.address || '정보가 없습니다.'}</span>
+              <span>{currentStore.address || "정보가 없습니다."}</span>
             </div>
             <div className="phone">
               <IoCallOutline size={20} />
-              <span>{currentStore.phone || '정보가 없습니다.'}</span>
+              <span>{currentStore.phone || "정보가 없습니다."}</span>
             </div>
             <div className="naverUrl">
               <Image src={Naver} width={20} height={20} alt="" />

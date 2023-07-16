@@ -21,8 +21,8 @@ body {
 
 @layer base {
   #__next {
-    width: 100%;
-    height: 100%;
+    // width: 100%;
+    // height: 100%;
     display: contents; // box요소를 생성하지 않고 접근성 tree에서도 제외된다. -> 브라우저 상에서도 요소가 보이지 않는다.
   }
 }
