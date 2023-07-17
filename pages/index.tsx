@@ -40,6 +40,9 @@ const Home: NextPage<Props> = ({ stores }) => {
 
   return (
     <Fragment>
+      {/* npm i next-seo */}
+      {/* next의 Head를 이용해도 손쉽게 seo를 구현 가능 하지만 */}
+      {/* next-seo를 사용하면 더 손쉽게 seo, open-graph, 트위터 공유에 들어가는 seo 값을 구현할 수 있습니다. */}
       <NextSeo
         title="매장 지도"
         description="Next.js 시작하기 강의를 위한 매장 지도 서비스입니다."

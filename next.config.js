@@ -9,6 +9,7 @@ const nextConfig = {
     ],
   },
   i18n: {
+    // 한국어 지원 설정(<html lang="ko">)
     /** https://nextjs.org/docs/advanced-features/i18n-routing#getting-started */
     locales: ["ko"],
     defaultLocale: "ko",

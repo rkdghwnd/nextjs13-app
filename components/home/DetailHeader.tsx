@@ -1,9 +1,9 @@
-import styles from '../../styles/detail.module.scss';
-import headerStyles from '../../styles/header.module.scss';
-import { IoIosArrowUp } from 'react-icons/io';
-import { AiOutlineShareAlt } from 'react-icons/ai';
-import type { Store } from '../../types/store';
-import copy from 'copy-to-clipboard';
+import styles from "../../styles/detail.module.scss";
+import headerStyles from "../../styles/header.module.scss";
+import { IoIosArrowUp } from "react-icons/io";
+import { AiOutlineShareAlt } from "react-icons/ai";
+import type { Store } from "../../types/store";
+import copy from "copy-to-clipboard";
 
 interface Props {
   currentStore?: Store;
@@ -15,10 +15,11 @@ const DetailHeader = ({ currentStore, expanded, onClickArrow }: Props) => {
   return (
     <div className={styles.header}>
       <button
-        className={`${styles.arrowButton} ${expanded ? styles.expanded : ''}`}
+        className={`${styles.arrowButton} ${expanded ? styles.expanded : ""}`}
         onClick={onClickArrow}
         disabled={!currentStore}
-        aria-label={expanded ? '매장 정보 접기' : '매장 정보 펼치기'}
+        aria-label={expanded ? "매장 정보 접기" : "매장 정보 펼치기"}
+        // aria-label : 웹 접근성 음성 메시지
       >
         <IoIosArrowUp size={20} color="#666666" />
       </button>
@@ -29,7 +30,7 @@ const DetailHeader = ({ currentStore, expanded, onClickArrow }: Props) => {
           <button
             className={headerStyles.box}
             onClick={() => {
-              copy(location.origin + '/' + currentStore.name);
+              copy(location.origin + "/" + currentStore.name);
             }}
             aria-label="매장 페이지 주소 클립보드 복사"
           >
