@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: false,
   images: {
     domains: [
+      // 이미지 파일 외부 도메인 접근 허용하는 주소
       "inflearn-nextjs.vercel.app",
       "search.pstatic.net",
       "lecture-1.vercel.app",
