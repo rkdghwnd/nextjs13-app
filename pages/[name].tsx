@@ -1,11 +1,11 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import type { Store } from "../types/store";
-import styles from "../styles/detail.module.scss";
-import DetailHeader from "../components/home/DetailHeader";
-import DetailContent from "../components/home/DetailContent";
-import { useRouter } from "next/router";
-import useCurrentStore from "../hooks/useCurrentStore";
-import { NextSeo } from "next-seo";
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import type { Store } from '../types/store';
+import styles from '../styles/detail.module.scss';
+import DetailHeader from '../components/home/DetailHeader';
+import DetailContent from '../components/home/DetailContent';
+import { useRouter } from 'next/router';
+import useCurrentStore from '../hooks/useCurrentStore';
+import { NextSeo } from 'next-seo';
 
 interface Props {
   store: Store;
@@ -34,9 +34,9 @@ const StoreDetail: NextPage<Props> = ({ store }) => {
       <NextSeo
         title={store.name}
         description="Next.js 시작하기 강의를 위한 매장 상세 페이지입니다."
-        canonical={`https://inflearn-nextjs.vercel.app/${store.name}`}
+        canonical={`${process.env.NEXT_PUBLIC_API_URL}/${store.name}`}
         openGraph={{
-          url: `https://inflearn-nextjs.vercel.app/${store.name}`,
+          url: `${process.env.NEXT_PUBLIC_API_URL}/${store.name}`,
         }}
       />
       <div className={`${styles.detailSection} ${styles.expanded}`}>
@@ -58,7 +58,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   // 빌드타임에 path에 따른 정적 페이지를 생성한다.
   // dynamic routing 페이지에 활용된다.
 
-  const stores = (await import("../public/stores.json")).default;
+  const stores = (await import('../public/stores.json')).default;
   const paths = stores.map((store) => ({ params: { name: store.name } }));
 
   return { paths, fallback: false };
@@ -89,7 +89,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   // getStaticProps는 빌드타임때만 실행되는것이 아니라
   // 페이지 접근시에도 실행된다. 그래서 return을 통해 404 페이지로 보낼 수 있는것,
 
-  const stores = (await import("../public/stores.json")).default;
+  const stores = (await import('../public/stores.json')).default;
   const store = stores.find((store) => store.name === params?.name);
 
   // fallback : true 인 경우의 404 처리
