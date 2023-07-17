@@ -27,7 +27,7 @@ export default {
     // 추가로 필요한 meta tag에 대한 정보를 나열
     {
       name: "naver-site-verification",
-      content: "7bd885b384be0f905aad30d00607e0481d4be908",
+      content: "11dbb30a9a1d5436391d1284af47399e2851cf33",
     },
     {
       name: "google-site-verification",
