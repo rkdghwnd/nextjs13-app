@@ -1,11 +1,11 @@
-import { Fragment, useEffect } from "react";
-import { NextPage } from "next";
-import Header from "../components/home/Header";
-import MapSection from "../components/home/MapSection";
-import DetailSection from "../components/home/DetailSection";
-import { Store } from "../types/store";
-import useStores from "../hooks/useStores";
-import { NextSeo } from "next-seo";
+import { Fragment, useEffect } from 'react';
+import { NextPage } from 'next';
+import Header from '../components/home/Header';
+import MapSection from '../components/home/MapSection';
+import DetailSection from '../components/home/DetailSection';
+import { Store } from '../types/store';
+import useStores from '../hooks/useStores';
+import { NextSeo } from 'next-seo';
 
 // npx create-next-app@latest --typescript
 // eslint-config-next는 next.js에서 권장하는 eslint 속성이 적용되는 모듈
@@ -48,16 +48,16 @@ const Home: NextPage<Props> = ({ stores }) => {
         description="Next.js 시작하기 강의를 위한 매장 지도 서비스입니다."
         canonical="https://inflearn-nextjs.vercel.app"
         openGraph={{
-          url: "https://inflearn-nextjs.vercel.app",
+          url: 'https://inflearn-nextjs.vercel.app',
         }}
       />
       <Header />
       <main
         style={{
-          position: "relative",
-          width: "100%",
-          height: "100%",
-          overflow: "hidden",
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+          overflow: 'hidden',
         }}
       >
         <MapSection />
@@ -68,7 +68,7 @@ const Home: NextPage<Props> = ({ stores }) => {
 };
 export default Home;
 
-export const  getStaticProps = async () => {
+export const getStaticProps = async () => {
   const stores = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/stores`
   ).then((response) => response.json());
@@ -77,4 +77,4 @@ export const  getStaticProps = async () => {
     props: { stores },
     revalidate: 60 * 60,
   };
-}
+};

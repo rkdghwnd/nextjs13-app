@@ -67,22 +67,26 @@ export const getStaticPaths: GetStaticPaths = async () => {
   // 생성해야할 페이지가 적은 경우 유용하다.
 
   // fallback : false
-  // npm run build 시점에 path에 대한 정적페이지 생성
+  // *npm run build 시점에 path로 설정한 정적페이지 생성, 추가적인 페이지는 생성 x
   // 존재하지 않는 경로에 접근하면 404 페이지 띄움
   // return 한 path에 대한 페이지'만' 생성함
   // 데이터에 의존하는 정적 페이지가 매우 많은 경우 빌드시간이 너무 오래 걸린다.
   // 따라서 생성할 페이지가 적은 경우에 유용함
 
   // fallback : true
+  // *build time 에 path로 설정한 정적페이지 생성 + build time 에 생성못한 페이지는 접근하는 시점에 생성(정적페이지 생성)
   // 사용자가 접근한 시점에 정적 페이지 생성 -> 그 후에는 생성한 페이지 pre-rendering
   // 존재하지 않는 경로에 접근해도 404 페이지 안띄움(따로 fallback 처리 해야 함)
-  // 생성해야할 정적페이지가 너무 많은 경우 유용하다.
+  // 생성해야할 정적페이지가 너무 많은 경우, 빌드시점에 생성한 페이지 외에 추가로 페이지를 생성해야하는 경우 유용하다.
   // ex) DB에 새로 추가해야하는 게시물이나 매장이 있는 경우
   // 이런경우 fallback : true 를 통해 따로 로딩처리(로딩인디케이터 or 스켈레톤ui)해서 보여주자
+  // fallback: true인 페이지를 next/link 나 next/router 로 페이지 접근한 경우 fallback: 'blocking'으로 동작함
 
   // fallback : 'blocking'
-  // getStaticProps 함수가 return 될 때까지 UI를 가만히 blocking(기다림) 함
-  // 사용자가 페이지에 접근한 시점에 페이지를 생성 -> 그 후 에는 생성한 페이지 pre-rendering
+  // *getStaticProps 함수가 return 될 때까지 UI를 가만히 blocking(기다림) 함
+  // build time 에 path로 설정한 정적 페이지 생성 +
+  // 사용자가 페이지에 접근한 시점에 페이지를 생성(SSR) -> 그 후 에는 생성한 페이지 pre-rendering
+  // fallback : blocking 은 로딩/isFallback 처리가 불가능하다
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
@@ -92,8 +96,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const stores = (await import('../public/stores.json')).default;
   const store = stores.find((store) => store.name === params?.name);
 
-  // fallback : true 인 경우의 404 처리
-  // 또는 router.isFallback 으로 처리 가능하다.
+  // fallback : true or blocking 인 경우의 404 처리?
+  // (blocking 부분 적용되는지 공식문서랑 답변이랑 달라서 테스트 해봐야함)
+  // fallback : true 는 router.isFallback 으로도 처리 가능하다.
+
   // if (!store) {
   //   return {
   //     notFound: true, //  404 페이지로 보내는 속성
