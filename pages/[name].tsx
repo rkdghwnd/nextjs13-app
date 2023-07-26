@@ -87,6 +87,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   // build time 에 path로 설정한 정적 페이지 생성 +
   // 사용자가 페이지에 접근한 시점에 페이지를 생성(SSR) -> 그 후 에는 생성한 페이지 pre-rendering
   // fallback : blocking 은 로딩/isFallback 처리가 불가능하다
+
+  // * 주의 ! fallback: true 나 blocking 은 이미 생성된 페이지를 업데이트 하지 않는다
+  // 기존 페이지의 업데이트는 ISR(revalidate)를 이용해야 한다.
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
